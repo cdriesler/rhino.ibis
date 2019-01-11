@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Ibis", "Rhino.Ibis\Rhino.Ibis.csproj", "{BF629D6A-BF0C-4045-9563-12714B57536F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Ibis.Test", "Rhino.Ibis.Test\Rhino.Ibis.Test.csproj", "{482538FA-EBED-4356-9F9B-C1B935C83D77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF629D6A-BF0C-4045-9563-12714B57536F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF629D6A-BF0C-4045-9563-12714B57536F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF629D6A-BF0C-4045-9563-12714B57536F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF629D6A-BF0C-4045-9563-12714B57536F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{482538FA-EBED-4356-9F9B-C1B935C83D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482538FA-EBED-4356-9F9B-C1B935C83D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482538FA-EBED-4356-9F9B-C1B935C83D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482538FA-EBED-4356-9F9B-C1B935C83D77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {078C9D40-7FEA-4710-9BAA-2EB75C3D93B9}
+	EndGlobalSection
+EndGlobal
