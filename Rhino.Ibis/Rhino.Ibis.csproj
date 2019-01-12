@@ -58,6 +58,7 @@
     <Compile Include="Relate\CurveToCurveRelation.cs" />
     <Compile Include="Ibis.cs" />
     <Compile Include="Relate\PointRelation.cs" />
+    <Compile Include="Relate\RelationBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Review\CurveCurve\" />

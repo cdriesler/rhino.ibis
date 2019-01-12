@@ -19,8 +19,8 @@ namespace Rhino.Ibis.Test
 
             Ibis.Relate(new List<Curve>())
                 .Review()
-                .DoSomething()
-                .DoSomethingElse()
+                .GroupBySlope()
+                .GroupByColinearity()
                 .Results();
         }
     }
