@@ -13,15 +13,15 @@ namespace Rhino.Ibis.Test
         [Test]
         public void TestMethod1()
         {
-            var env = "y";
+            var val = Ibis.Relate(new LineCurve()).To(new LineCurve()).Review(
+                new Rhino.Ibis.Relate.CurveToCurveRelationReviewOptions()
+                {
+                    DoFindSomething = true
+                }
+                )
+                .FindSomethingValue;
 
-            env.Should().Be("x", "because I just wrote it");
-
-            Ibis.Relate(new List<Curve>())
-                .Review()
-                .GroupBySlope()
-                .GroupByColinearity()
-                .Results();
+            val.Should().BeTrue();
         }
     }
 }
