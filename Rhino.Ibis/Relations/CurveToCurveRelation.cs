@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Rhino.Geometry;
 using Rhino.Ibis.Reviews;
 
-namespace Rhino.Ibis.Relate
+namespace Rhino.Ibis.Relations
 {
     public class CurveToCurveRelation : RelationBase
     {
@@ -52,6 +52,11 @@ namespace Rhino.Ibis.Relate
             ReviewMethods = new CurveToCurveRelationReview(this);
         }
 
+        public CurveToCurveRelationReview Run()
+        {
+            return _reviewMethods;
+        }
+
         public CurveToCurveRelation Review()
         {
             //Review with all methods.
@@ -59,11 +64,25 @@ namespace Rhino.Ibis.Relate
             return this;
         }
 
+        public void Review(out CurveToCurveRelation results)
+        {
+            //Review with all methods.
+
+            results = this;
+        }
+
         public CurveToCurveRelation Review(CurveToCurveRelationReviewOptions options)
         {
-            Reviews.Review.ReviewWithOptions(ref _reviewMethods, ref options);
+            ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
             return this;
+        }
+
+        public void Review(CurveToCurveRelationReviewOptions options, out CurveToCurveRelation results)
+        {
+            ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
+
+            results = this;
         }
     }
 
@@ -87,6 +106,16 @@ namespace Rhino.Ibis.Relate
         public CurveToCurveRelationReview(CurveToCurveRelation source)
         {
             Source = source;
+        }
+
+        public CurveToCurveRelation Results()
+        {
+            return _source;
+        }
+
+        public void Results(out CurveToCurveRelation results)
+        {
+            results = _source;
         }
 
         public CurveToCurveRelationReview FindSomething()

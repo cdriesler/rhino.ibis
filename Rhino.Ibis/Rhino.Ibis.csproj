@@ -53,16 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Relate\CurveRelation.cs" />
-    <Compile Include="Relate\CurvesRelation.cs" />
-    <Compile Include="Relate\CurveToCurveRelation.cs" />
+    <Compile Include="Relations\CurveRelation.cs" />
+    <Compile Include="Relations\CurvesRelation.cs" />
+    <Compile Include="Relations\CurveToCurveRelation.cs" />
     <Compile Include="Ibis.cs" />
-    <Compile Include="Relate\PointRelation.cs" />
-    <Compile Include="Relate\RelationBase.cs" />
-    <Compile Include="Review\Review.cs" />
+    <Compile Include="Relations\PointRelation.cs" />
+    <Compile Include="Relations\RelationBase.cs" />
+    <Compile Include="Reviews\Review.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Review\CurveCurve\" />
+    <Folder Include="Reviews\CurveCurve\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

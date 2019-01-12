@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rhino.Ibis.Reviews
 {
-    public static class Review
+    public static class ReviewUtils
     {
         public static void ReviewWithOptions<T, U>(ref T methods, ref U options)
         {
@@ -24,6 +24,11 @@ namespace Rhino.Ibis.Reviews
                     allMethods.GetMethod(property.Name.Substring(2)).Invoke(methods, null);
                 }
             }
+        }
+
+        public static void ReviewAll<T>(ref T methods)
+        {
+
         }
     }
 }

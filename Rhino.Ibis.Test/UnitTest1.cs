@@ -14,14 +14,29 @@ namespace Rhino.Ibis.Test
         public void TestMethod1()
         {
             var val = Ibis.Relate(new LineCurve()).To(new LineCurve()).Review(
-                new Rhino.Ibis.Relate.CurveToCurveRelationReviewOptions()
+                new Rhino.Ibis.Relations.CurveToCurveRelationReviewOptions()
                 {
                     DoFindSomething = true
                 }
                 )
                 .FindSomethingValue;
 
-            val.Should().BeTrue();
+            var result = Ibis
+                .Relate(new LineCurve()).To(new LineCurve())
+                .Run()
+                .FindSomething()
+                .Results();
+
+            Ibis.Relate(new LineCurve()).To(new LineCurve()).Review(out var res);
+
+            Ibis.Relate(new LineCurve()).To(new LineCurve())
+                .Run()
+                .FindSomething()
+                .Results(out var x);
+
+            res.FindSomethingValue.Should().BeTrue();
+
+            
         }
     }
 }

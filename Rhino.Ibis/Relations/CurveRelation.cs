@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
 
-namespace Rhino.Ibis.Relate
+namespace Rhino.Ibis.Relations
 {
     public class CurveRelation
     {

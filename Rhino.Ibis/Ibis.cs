@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
-using Rhino.Ibis.Relate;
+using Rhino.Ibis.Relations;
 
 namespace Rhino.Ibis
 {
