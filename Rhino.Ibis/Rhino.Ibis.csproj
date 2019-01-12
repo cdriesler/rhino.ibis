@@ -59,7 +59,7 @@
     <Compile Include="Relations\CurveToCurveRelation.cs" />
     <Compile Include="Ibis.cs" />
     <Compile Include="Relations\PointRelation.cs" />
-    <Compile Include="Relations\RelationBase.cs" />
+    <Compile Include="Reviews\ReviewExceptions.cs" />
     <Compile Include="Reviews\ReviewUtils.cs" />
   </ItemGroup>
   <ItemGroup>

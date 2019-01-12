@@ -6,61 +6,51 @@ using System.Threading.Tasks;
 using Rhino.Geometry;
 using Rhino.Geometry.Intersect;
 using Rhino.Ibis.Reviews;
+using Rhino.Ibis.Options;
 
 namespace Rhino.Ibis.Relations
 {
-    public class CurveToCurveRelation : RelationBase
+    public class CurveToCurveRelation
     {
         //Test and target geometry.
         public Curve GeometryA { get; set; }
         public Curve GeometryB { get; set; }
 
         //Result properties (get; private set;)
-        public CurveToCurveRelationResults ResultsA { get; set; }
-        public CurveToCurveRelationResults ResultsB { get; set; }
+        public CurveToCurveReviewResults ResultsA { get; set; }
+        public CurveToCurveReviewResults ResultsB { get; set; }
 
         //Review methods.
-        private CurveToCurveRelationReview _reviewMethods;
-        public override ReviewBase ReviewMethods
+        private CurveToCurveReview _reviewMethods;
+        public CurveToCurveReview ReviewMethods
         {
             get
             {
-                return null;
+                return _reviewMethods;
             }
             set
             {
-                var review = value as CurveToCurveRelationReview;
-
-                if (review != null) _reviewMethods = review;
+                _reviewMethods = value;
             }
         }
 
         //Review options.
-        private CurveToCurveRelationReviewOptions _reviewOptions;
-        public override ReviewOptions ReviewOptions
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                var opts = value as CurveToCurveRelationReviewOptions;
-
-                if (opts != null) _reviewOptions = opts;
-            }
-        }
+        public CurveToCurveOptions ReviewOptions { get; set; }
 
         public CurveToCurveRelation(Curve testCurve, Curve targetCurve)
         {
-            ReviewMethods = new CurveToCurveRelationReview(this);
-            ResultsA = new CurveToCurveRelationResults();
-            ResultsB = new CurveToCurveRelationResults();
+            ReviewMethods = new CurveToCurveReview(this);
+
+            GeometryA = testCurve;
+            GeometryB = targetCurve;
+
+            ResultsA = new CurveToCurveReviewResults();
+            ResultsB = new CurveToCurveReviewResults();
         }
 
-        public CurveToCurveRelationReview Resolve()
+        public CurveToCurveReview Resolve()
         {
-            return _reviewMethods;
+            return ReviewMethods;
         }
 
         public CurveToCurveRelation Review()
@@ -70,7 +60,14 @@ namespace Rhino.Ibis.Relations
             return this;
         }
 
-        public void Review(out CurveToCurveRelationResults resultsA, out CurveToCurveRelationResults resultsB)
+        public void Review(out CurveToCurveRelation results)
+        {
+            //Review with all methods.
+
+            results = this;
+        }
+
+        public void Review(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
         {
             //Review with all methods.
 
@@ -78,14 +75,14 @@ namespace Rhino.Ibis.Relations
             resultsB = ResultsB;
         }
 
-        public CurveToCurveRelation Review(CurveToCurveRelationReviewOptions options)
+        public CurveToCurveRelation Review(CurveToCurveOptions options)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
             return this;
         }
 
-        public void Review(CurveToCurveRelationReviewOptions options, out CurveToCurveRelationResults resultsA, out CurveToCurveRelationResults resultsB)
+        public void Review(CurveToCurveOptions options, out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
@@ -94,7 +91,7 @@ namespace Rhino.Ibis.Relations
         }
     }
 
-    public class CurveToCurveRelationResults
+    public class CurveToCurveReviewResults
     {
         private bool _intersectionExistsRun;
         private bool _intersectionExists;
@@ -116,64 +113,41 @@ namespace Rhino.Ibis.Relations
             }
         }
 
-        public CurveToCurveRelationResults()
+        public CurveToCurveReviewResults()
         {
 
         }
     }
 
-    public class CurveToCurveRelationReview : ReviewBase
+    public class CurveToCurveReview
     {
-        private CurveToCurveRelation _source;
-        public override RelationBase Source
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                var src = value as CurveToCurveRelation;
+        public CurveToCurveRelation Source { get; set; }
 
-                if (src != null) _source = src;
-            }
-        }
-
-        public CurveToCurveRelationReview(CurveToCurveRelation source)
+        public CurveToCurveReview(CurveToCurveRelation source)
         {
             Source = source;
         }
 
         public CurveToCurveRelation Results()
         {
-            return _source;
+            return Source;
         }
 
-        public void Results(out CurveToCurveRelationResults resultsA, out CurveToCurveRelationResults resultsB)
+        public void Results(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
         {
-            resultsA = _source.ResultsA;
-            resultsB = _source.ResultsB;
+            resultsA = Source.ResultsA;
+            resultsB = Source.ResultsB;
         }
 
-        public CurveToCurveRelationReview IfIntersectionExists()
+        public CurveToCurveReview IfIntersectionExists()
         {
-            var ccx = Intersection.CurveCurve(_source.GeometryA, _source.GeometryB, 0.1, 0.1);
+            var ccx = Intersection.CurveCurve(Source.GeometryA, Source.GeometryB, 0.1, 0.1);
             var res = ccx.Any(x => x.IsPoint);
 
-            _source.ResultsA.IntersectionExists = true;
-            _source.ResultsB.IntersectionExists = true;
+            Source.ResultsA.IntersectionExists = true;
+            Source.ResultsB.IntersectionExists = true;
 
             return this;
-        }
-    }
-
-    public class CurveToCurveRelationReviewOptions : ReviewOptions
-    {
-        public bool DoIfIntersectionExists { get; set; }
-
-        public CurveToCurveRelationReviewOptions()
-        {
-
         }
     }
 }
