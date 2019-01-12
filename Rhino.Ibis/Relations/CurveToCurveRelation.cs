@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rhino.Geometry;
+using Rhino.Geometry.Intersect;
 using Rhino.Ibis.Reviews;
 
 namespace Rhino.Ibis.Relations
@@ -11,9 +12,12 @@ namespace Rhino.Ibis.Relations
     public class CurveToCurveRelation : RelationBase
     {
         //Test and target geometry.
+        public Curve GeometryA { get; set; }
+        public Curve GeometryB { get; set; }
 
         //Result properties (get; private set;)
-        public bool FindSomethingValue { get; set; }
+        public CurveToCurveRelationResults ResultsA { get; set; }
+        public CurveToCurveRelationResults ResultsB { get; set; }
 
         //Review methods.
         private CurveToCurveRelationReview _reviewMethods;
@@ -50,9 +54,11 @@ namespace Rhino.Ibis.Relations
         public CurveToCurveRelation(Curve testCurve, Curve targetCurve)
         {
             ReviewMethods = new CurveToCurveRelationReview(this);
+            ResultsA = new CurveToCurveRelationResults();
+            ResultsB = new CurveToCurveRelationResults();
         }
 
-        public CurveToCurveRelationReview Run()
+        public CurveToCurveRelationReview Resolve()
         {
             return _reviewMethods;
         }
@@ -64,11 +70,12 @@ namespace Rhino.Ibis.Relations
             return this;
         }
 
-        public void Review(out CurveToCurveRelation results)
+        public void Review(out CurveToCurveRelationResults resultsA, out CurveToCurveRelationResults resultsB)
         {
             //Review with all methods.
 
-            results = this;
+            resultsA = ResultsA;
+            resultsB = ResultsB;
         }
 
         public CurveToCurveRelation Review(CurveToCurveRelationReviewOptions options)
@@ -78,11 +85,40 @@ namespace Rhino.Ibis.Relations
             return this;
         }
 
-        public void Review(CurveToCurveRelationReviewOptions options, out CurveToCurveRelation results)
+        public void Review(CurveToCurveRelationReviewOptions options, out CurveToCurveRelationResults resultsA, out CurveToCurveRelationResults resultsB)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
-            results = this;
+            resultsA = ResultsA;
+            resultsB = ResultsB;
+        }
+    }
+
+    public class CurveToCurveRelationResults
+    {
+        private bool _intersectionExistsRun;
+        private bool _intersectionExists;
+        public bool IntersectionExists
+        {
+            get
+            {
+                if (!_intersectionExistsRun)
+                {
+                    throw new TestNotRunException();
+                }
+
+                return _intersectionExists;
+            }
+            set
+            {
+                _intersectionExistsRun = true;
+                _intersectionExists = value;
+            }
+        }
+
+        public CurveToCurveRelationResults()
+        {
+
         }
     }
 
@@ -113,14 +149,19 @@ namespace Rhino.Ibis.Relations
             return _source;
         }
 
-        public void Results(out CurveToCurveRelation results)
+        public void Results(out CurveToCurveRelationResults resultsA, out CurveToCurveRelationResults resultsB)
         {
-            results = _source;
+            resultsA = _source.ResultsA;
+            resultsB = _source.ResultsB;
         }
 
-        public CurveToCurveRelationReview FindSomething()
+        public CurveToCurveRelationReview IfIntersectionExists()
         {
-            _source.FindSomethingValue = true;
+            var ccx = Intersection.CurveCurve(_source.GeometryA, _source.GeometryB, 0.1, 0.1);
+            var res = ccx.Any(x => x.IsPoint);
+
+            _source.ResultsA.IntersectionExists = true;
+            _source.ResultsB.IntersectionExists = true;
 
             return this;
         }
@@ -128,7 +169,7 @@ namespace Rhino.Ibis.Relations
 
     public class CurveToCurveRelationReviewOptions : ReviewOptions
     {
-        public bool DoFindSomething { get; set; }
+        public bool DoIfIntersectionExists { get; set; }
 
         public CurveToCurveRelationReviewOptions()
         {

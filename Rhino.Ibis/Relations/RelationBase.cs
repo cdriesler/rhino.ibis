@@ -22,4 +22,17 @@ namespace Rhino.Ibis.Relations
     {
 
     }
+
+    public class TestNotRunException : Exception
+    {
+        public TestNotRunException() : base("Property was never calculated. Results are null or invalid.")
+        {
+
+        }
+
+        public TestNotRunException(string message) : base(message)
+        {
+
+        }
+    }
 }

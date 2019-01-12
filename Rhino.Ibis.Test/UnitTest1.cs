@@ -13,28 +13,12 @@ namespace Rhino.Ibis.Test
         [Test]
         public void TestMethod1()
         {
-            var val = Ibis.Relate(new LineCurve()).To(new LineCurve()).Review(
-                new Rhino.Ibis.Relations.CurveToCurveRelationReviewOptions()
-                {
-                    DoFindSomething = true
-                }
-                )
-                .FindSomethingValue;
+            Relate.This(new LineCurve()).To(new LineCurve())
+                .Resolve()
+                .IfIntersectionExists()
+                .Results(out var resA, out var resB);
 
-            var result = Ibis
-                .Relate(new LineCurve()).To(new LineCurve())
-                .Run()
-                .FindSomething()
-                .Results();
-
-            Ibis.Relate(new LineCurve()).To(new LineCurve()).Review(out var res);
-
-            Ibis.Relate(new LineCurve()).To(new LineCurve())
-                .Run()
-                .FindSomething()
-                .Results(out var x);
-
-            res.FindSomethingValue.Should().BeTrue();
+            resA.IntersectionExists.Should().BeTrue();
 
             
         }
