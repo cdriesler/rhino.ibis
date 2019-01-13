@@ -8,7 +8,7 @@ using Rhino.Geometry;
 using FluentAssertions;
 using Rhino.Ibis.Reviews;
 
-namespace Rhino.Ibis.Test.Relations.CurveToCurveRelation
+namespace Rhino.Ibis.Test.Relations
 {
     [TestFixture]
     public class CurveToCurveRelationSpecs

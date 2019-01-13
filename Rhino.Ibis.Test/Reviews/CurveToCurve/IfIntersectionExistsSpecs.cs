@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using FluentAssertions;
-using Rhino.Ibis.Options;
+using Rhino.Ibis.Reviews.CurveToCurve;
 
-namespace Rhino.Ibis.Test.Relations.CurveToCurveRelation.ReviewMethods
+namespace Rhino.Ibis.Test.Reviews.CurveToCurve
 {
     [TestFixture]
     public class IfIntersectionExistsSpecs
@@ -36,7 +36,7 @@ namespace Rhino.Ibis.Test.Relations.CurveToCurveRelation.ReviewMethods
         public void When_relating_CenteredVertical_to_CenteredHorizontal_with_options_should_return_true_for_GeometryA()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
-            var opts = new CurveToCurveOptions()
+            var opts = new CurveToCurveReviewOptions()
             {
                 DoIfIntersectionExists = true
             };
@@ -50,7 +50,7 @@ namespace Rhino.Ibis.Test.Relations.CurveToCurveRelation.ReviewMethods
         public void When_relating_CenteredVertical_to_CenteredHorizontal_with_options_should_return_true_for_GeometryB()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
-            var opts = new CurveToCurveOptions()
+            var opts = new CurveToCurveReviewOptions()
             {
                 DoIfIntersectionExists = true
             };

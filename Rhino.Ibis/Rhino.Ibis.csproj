@@ -52,19 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Options\CurveToCurveOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relations\CurveRelation.cs" />
     <Compile Include="Relations\CurvesRelation.cs" />
     <Compile Include="Relations\CurveToCurveRelation.cs" />
     <Compile Include="Ibis.cs" />
     <Compile Include="Relations\PointRelation.cs" />
+    <Compile Include="Reviews\CurveToCurve\CurveToCurveReview.cs" />
+    <Compile Include="Reviews\CurveToCurve\CurveToCurveReviewOptions.cs" />
+    <Compile Include="Reviews\CurveToCurve\Methods\IfIntersectionExists.cs" />
     <Compile Include="Reviews\ReviewExceptions.cs" />
     <Compile Include="Reviews\ReviewUtils.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reviews\CurveCurve\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

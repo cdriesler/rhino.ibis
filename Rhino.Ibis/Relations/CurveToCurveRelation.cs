@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 using Rhino.Geometry;
 using Rhino.Geometry.Intersect;
 using Rhino.Ibis.Reviews;
-using Rhino.Ibis.Options;
+using Rhino.Ibis.Reviews.CurveToCurve;
 
 namespace Rhino.Ibis.Relations
 {
     public class CurveToCurveRelation
     {
-        //Test and target geometry.
+        //Related geometry
         public Curve GeometryA { get; set; }
         public Curve GeometryB { get; set; }
 
-        //Result properties (get; private set;)
+        //Relation properties
         public CurveToCurveReviewResults ResultsA { get; set; }
         public CurveToCurveReviewResults ResultsB { get; set; }
 
-        //Review methods.
+        //Review methods class
         private CurveToCurveReview _reviewMethods;
         public CurveToCurveReview ReviewMethods
         {
@@ -33,9 +33,6 @@ namespace Rhino.Ibis.Relations
                 _reviewMethods = value;
             }
         }
-
-        //Review options.
-        public CurveToCurveOptions ReviewOptions { get; set; }
 
         public CurveToCurveRelation(Curve testCurve, Curve targetCurve)
         {
@@ -75,14 +72,14 @@ namespace Rhino.Ibis.Relations
             resultsB = ResultsB;
         }
 
-        public CurveToCurveRelation Review(CurveToCurveOptions options)
+        public CurveToCurveRelation Review(CurveToCurveReviewOptions options)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
             return this;
         }
 
-        public void Review(CurveToCurveOptions options, out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        public void Review(CurveToCurveReviewOptions options, out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
@@ -116,38 +113,6 @@ namespace Rhino.Ibis.Relations
         public CurveToCurveReviewResults()
         {
 
-        }
-    }
-
-    public class CurveToCurveReview
-    {
-        public CurveToCurveRelation Source { get; set; }
-
-        public CurveToCurveReview(CurveToCurveRelation source)
-        {
-            Source = source;
-        }
-
-        public CurveToCurveRelation Results()
-        {
-            return Source;
-        }
-
-        public void Results(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
-        {
-            resultsA = Source.ResultsA;
-            resultsB = Source.ResultsB;
-        }
-
-        public CurveToCurveReview IfIntersectionExists()
-        {
-            var ccx = Intersection.CurveCurve(Source.GeometryA, Source.GeometryB, 0.1, 0.1);
-            var res = ccx.Any(x => x.IsPoint);
-
-            Source.ResultsA.IntersectionExists = true;
-            Source.ResultsB.IntersectionExists = true;
-
-            return this;
         }
     }
 }

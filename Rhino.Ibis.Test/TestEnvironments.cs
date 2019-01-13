@@ -22,18 +22,4 @@ namespace Rhino.Ibis.Test
 
         #endregion
     }
-
-    public class TestEnvironment
-    {
-        public List<GeometryBase> GeometryA { get; set; }
-        public List<GeometryBase> GeometryB { get; set; }
-
-        public object Options { get; set; }
-
-        public TestEnvironment(GeometryBase geoA, GeometryBase geoB)
-        {
-            GeometryA = new List<GeometryBase> { geoA };
-            GeometryB = new List<GeometryBase> { geoB };
-        }
-    }
 }

@@ -6,13 +6,13 @@ This library (**still very incomplete**) exposes and streamlines a collection of
 
 ```csharp
 
-bool VerifyCurveIsMostlyContained() 
+bool VerifyCurveIsMostlyContained(Curve crv, Curve region) 
 
-private bool CurveIntersectsRegion() 
+bool CurveIntersectsRegion(Curve crv, Curve region) 
 
-private bool CurveIsContainedByRegion()
+bool CurveIsContainedByRegion(Curve crv, Curve region)
 
-private CurveContainmentPackage FindSegmentsByRegionIntersection()
+CurveContainmentPackage FindSegmentsByRegionIntersection(Curve crv, Curve region)
 
 ```
 
