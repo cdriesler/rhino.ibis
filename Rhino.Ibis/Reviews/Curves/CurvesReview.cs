@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rhino.Ibis.Test.Relations.CurvesRelation
+namespace Rhino.Ibis.Reviews.Curves
 {
-    class CurvesRelationSpecs
+    public class CurvesReview
     {
     }
 }

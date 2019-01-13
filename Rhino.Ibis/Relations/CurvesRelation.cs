@@ -9,11 +9,11 @@ namespace Rhino.Ibis.Relations
 {
     public class CurvesRelation
     {
-        public List<Curve> TestCurves { get; set; }
+        public List<Curve> GeometryA { get; set; }
 
         public CurvesRelation(List<Curve> testCurves)
         {
-            TestCurves = testCurves;
+            GeometryA = testCurves;
         }
     }
 }

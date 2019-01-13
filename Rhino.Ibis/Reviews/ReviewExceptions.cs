@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Rhino.Ibis.Reviews
 {
-    public class TestNotRunException : Exception
+    public class UnresolvedPropertyException : Exception
     {
-        public TestNotRunException() : base("Property was never calculated. Results are null or invalid.")
+        public UnresolvedPropertyException() : base("Property was never calculated. Results are null or invalid.")
         {
 
         }
 
-        public TestNotRunException(string message) : base(message)
+        public UnresolvedPropertyException(string message) : base(message)
         {
 
         }
