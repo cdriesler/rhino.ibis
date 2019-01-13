@@ -15,9 +15,10 @@ namespace Rhino.Ibis.Test.Reviews.CurveToCurve
         [Test]
         public void Given_CenteredVertical_to_CenteredHorizontal_when_reviewing_GeometryA_should_find_one_unique_point()
         {
-            var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
-
-            rel.Resolve().PointsFromIntersection().Results(out var resA, out var resB);
+            TestEnvironments.CenteredVertical_CenteredHorizontal()
+                .Resolve()
+                .PointsFromIntersection()
+                .Results(out var resA, out var resB);
 
             var val = resA.UniquePointsFromIntersection.Count;
 
@@ -27,9 +28,10 @@ namespace Rhino.Ibis.Test.Reviews.CurveToCurve
         [Test]
         public void Given_CenteredVertical_to_CenteredHorizontal_when_reviewing_GeometryB_should_find_one_unique_point()
         {
-            var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
-
-            rel.Resolve().PointsFromIntersection().Results(out var resA, out var resB);
+            TestEnvironments.CenteredVertical_CenteredHorizontal()
+                .Resolve()
+                .PointsFromIntersection()
+                .Results(out var resA, out var resB);
 
             var val = resB.UniquePointsFromIntersection.Count;
 

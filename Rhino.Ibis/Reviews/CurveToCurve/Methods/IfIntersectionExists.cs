@@ -16,8 +16,8 @@ namespace Rhino.Ibis.Reviews.CurveToCurve
             var ccx = Intersection.CurveCurve(source.GeometryA, source.GeometryB, 0.1, 0.1);
             var res = ccx.Any(x => x.IsPoint);
 
-            source.PropertiesA.IntersectionExists = true;
-            source.PropertiesB.IntersectionExists = true;
+            source.PropertiesA.IntersectionExists = res;
+            source.PropertiesB.IntersectionExists = res;
         }
     }
 }
