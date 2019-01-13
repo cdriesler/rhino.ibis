@@ -9,6 +9,7 @@ namespace Rhino.Ibis.Reviews.CurveToCurve
     public class CurveToCurveReviewOptions
     {
         public bool DoIfIntersectionExists { get; set; }
+        public bool DoPointsFromIntersection { get; set; }
 
         public CurveToCurveReviewOptions()
         {

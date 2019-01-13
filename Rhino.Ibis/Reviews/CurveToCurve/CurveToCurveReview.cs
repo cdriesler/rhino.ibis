@@ -24,16 +24,26 @@ namespace Rhino.Ibis.Reviews.CurveToCurve
             return Source;
         }
 
-        public void Results(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        public void Results(out CurveToCurveRelationProperties resultsA, out CurveToCurveRelationProperties resultsB)
         {
             resultsA = Source.ResultsA;
             resultsB = Source.ResultsB;
         }
+
+        #region handshake methods
 
         public CurveToCurveReview IfIntersectionExists()
         {
             Methods.IfIntersectionExists(Source);
             return this;
         }
+
+        public CurveToCurveReview PointsFromIntersection()
+        {
+            Methods.PointsFromIntersection(Source);
+            return this;
+        }
+
+        #endregion
     }
 }

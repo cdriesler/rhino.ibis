@@ -58,9 +58,12 @@
     <Compile Include="Relations\CurveToCurveRelation.cs" />
     <Compile Include="Ibis.cs" />
     <Compile Include="Relations\PointRelation.cs" />
+    <Compile Include="Reviews\Curves\CurvesReview.cs" />
+    <Compile Include="Reviews\Curves\CurvesReviewOptions.cs" />
     <Compile Include="Reviews\CurveToCurve\CurveToCurveReview.cs" />
     <Compile Include="Reviews\CurveToCurve\CurveToCurveReviewOptions.cs" />
     <Compile Include="Reviews\CurveToCurve\Methods\IfIntersectionExists.cs" />
+    <Compile Include="Reviews\CurveToCurve\Methods\PointsFromIntersection.cs" />
     <Compile Include="Reviews\ReviewExceptions.cs" />
     <Compile Include="Reviews\ReviewUtils.cs" />
   </ItemGroup>

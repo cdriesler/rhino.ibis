@@ -84,7 +84,9 @@
   <ItemGroup>
     <Compile Include="Relations\CurvesRelationSpecs.cs" />
     <Compile Include="Relations\CurveToCurveRelationSpecs.cs" />
+    <Compile Include="Reviews\Curves\GroupsByColinearity.cs" />
     <Compile Include="Reviews\CurveToCurve\IfIntersectionExistsSpecs.cs" />
+    <Compile Include="Reviews\CurveToCurve\PointsFromIntersectionSpecs.cs" />
     <Compile Include="TestEnvironments.cs" />
     <Compile Include="TestInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

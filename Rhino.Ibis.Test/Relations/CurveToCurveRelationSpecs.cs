@@ -21,14 +21,35 @@ namespace Rhino.Ibis.Test.Relations
             rel.Should().BeOfType<Ibis.Relations.CurveToCurveRelation>("because it is relating a curve to a curve");
         }
 
+        #region unresolved property tests
+
         [Test]
-        public void Should_throw_exception_when_unresolved_property_is_read()
+        public void AllPointsFromIntersection_should_throw_exception_when_read_if_unresolved()
+        {
+            var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
+
+            Action act = () => { var x = rel.ResultsA.AllPointsFromIntersection; };
+            act.Should().Throw<UnresolvedPropertyException>("because the property was read before it was actually resolved");
+        }
+
+        [Test]
+        public void IntersectionExists_should_throw_exception_when_read_if_unresolved()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
 
             Action act = () => { var x = rel.ResultsA.IntersectionExists; };
-
-            act.Should().Throw<TestNotRunException>("because the property was read before it was actually resolved");
+            act.Should().Throw<UnresolvedPropertyException>("because the property was read before it was actually resolved");
         }
+
+        [Test]
+        public void UniquePointsFromIntersection_should_throw_exception_when_read_if_unresolved()
+        {
+            var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
+
+            Action act = () => { var x = rel.ResultsA.UniquePointsFromIntersection; };
+            act.Should().Throw<UnresolvedPropertyException>("because the property was read before it was actually resolved");
+        }
+
+        #endregion
     }
 }

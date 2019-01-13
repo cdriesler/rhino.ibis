@@ -13,7 +13,7 @@ namespace Rhino.Ibis.Test.Reviews.CurveToCurve
     public class IfIntersectionExistsSpecs
     {
         [Test]
-        public void When_relating_CenteredVertical_to_CenteredHorizontal_should_return_true_for_GeometryA()
+        public void Given_CenteredVertical_to_CenteredHorizontal_should_return_true_for_GeometryA()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
 
@@ -23,7 +23,7 @@ namespace Rhino.Ibis.Test.Reviews.CurveToCurve
         }
 
         [Test]
-        public void When_relating_CenteredVertical_to_CenteredHorizontal_should_return_true_for_GeometryB()
+        public void Given_CenteredVertical_to_CenteredHorizontal_should_return_true_for_GeometryB()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
 
@@ -33,7 +33,7 @@ namespace Rhino.Ibis.Test.Reviews.CurveToCurve
         }
 
         [Test]
-        public void When_relating_CenteredVertical_to_CenteredHorizontal_with_options_should_return_true_for_GeometryA()
+        public void Given_CenteredVertical_to_CenteredHorizontal_with_options_should_return_true_for_GeometryA()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
             var opts = new CurveToCurveReviewOptions()
@@ -47,7 +47,7 @@ namespace Rhino.Ibis.Test.Reviews.CurveToCurve
         }
 
         [Test]
-        public void When_relating_CenteredVertical_to_CenteredHorizontal_with_options_should_return_true_for_GeometryB()
+        public void Given_CenteredVertical_to_CenteredHorizontal_with_options_should_return_true_for_GeometryB()
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
             var opts = new CurveToCurveReviewOptions()

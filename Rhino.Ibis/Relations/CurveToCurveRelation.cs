@@ -17,8 +17,8 @@ namespace Rhino.Ibis.Relations
         public Curve GeometryB { get; set; }
 
         //Relation properties
-        public CurveToCurveReviewResults ResultsA { get; set; }
-        public CurveToCurveReviewResults ResultsB { get; set; }
+        public CurveToCurveRelationProperties ResultsA { get; set; }
+        public CurveToCurveRelationProperties ResultsB { get; set; }
 
         //Review methods class
         private CurveToCurveReview _reviewMethods;
@@ -41,8 +41,8 @@ namespace Rhino.Ibis.Relations
             GeometryA = testCurve;
             GeometryB = targetCurve;
 
-            ResultsA = new CurveToCurveReviewResults();
-            ResultsB = new CurveToCurveReviewResults();
+            ResultsA = new CurveToCurveRelationProperties();
+            ResultsB = new CurveToCurveRelationProperties();
         }
 
         public CurveToCurveReview Resolve()
@@ -64,7 +64,7 @@ namespace Rhino.Ibis.Relations
             results = this;
         }
 
-        public void Review(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        public void Review(out CurveToCurveRelationProperties resultsA, out CurveToCurveRelationProperties resultsB)
         {
             //Review with all methods.
 
@@ -79,7 +79,7 @@ namespace Rhino.Ibis.Relations
             return this;
         }
 
-        public void Review(CurveToCurveReviewOptions options, out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        public void Review(CurveToCurveReviewOptions options, out CurveToCurveRelationProperties resultsA, out CurveToCurveRelationProperties resultsB)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
@@ -88,29 +88,59 @@ namespace Rhino.Ibis.Relations
         }
     }
 
-    public class CurveToCurveReviewResults
+    public class CurveToCurveRelationProperties
     {
-        private bool _intersectionExistsRun;
+        /* IfIntersectionExists() */
+        private bool _intersectionExistsResolved;
         private bool _intersectionExists;
         public bool IntersectionExists
         {
             get
             {
-                if (!_intersectionExistsRun)
-                {
-                    throw new TestNotRunException();
-                }
-
+                if (!_intersectionExistsResolved) throw new UnresolvedPropertyException();
                 return _intersectionExists;
             }
             set
             {
-                _intersectionExistsRun = true;
+                _intersectionExistsResolved = true;
                 _intersectionExists = value;
             }
         }
 
-        public CurveToCurveReviewResults()
+        /* PointsFromIntersection() */
+        private bool _uniquePointsFromIntersectionResolved;
+        private List<Point3d> _uniquePointsFromIntersection;
+        public List<Point3d> UniquePointsFromIntersection
+        {
+            get
+            {
+                if (!_uniquePointsFromIntersectionResolved) throw new UnresolvedPropertyException();
+                return _uniquePointsFromIntersection;
+            }
+            set
+            {
+                _uniquePointsFromIntersectionResolved = true;
+                _uniquePointsFromIntersection = value;
+            }
+        }
+
+        private bool _allPointsFromIntersectionResolved;
+        private List<Point3d> _allPointsFromIntersection;
+        public List<Point3d> AllPointsFromIntersection
+        {
+            get
+            {
+                if (!_allPointsFromIntersectionResolved) throw new UnresolvedPropertyException();
+                return _allPointsFromIntersection;
+            }
+            set
+            {
+                _allPointsFromIntersectionResolved = true;
+                _allPointsFromIntersection = value;
+            }
+        }
+
+        public CurveToCurveRelationProperties()
         {
 
         }
