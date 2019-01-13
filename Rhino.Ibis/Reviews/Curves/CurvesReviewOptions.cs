@@ -8,5 +8,11 @@ namespace Rhino.Ibis.Reviews.Curves
 {
     public class CurvesReviewOptions
     {
+        public bool DoGroupsByColinearity { get; set; }
+
+        public CurvesReviewOptions()
+        {
+
+        }
     }
 }

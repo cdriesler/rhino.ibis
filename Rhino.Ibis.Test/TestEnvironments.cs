@@ -121,7 +121,7 @@ namespace Rhino.Ibis.Test
 
         public static CurvesRelation ShuffledPinwheel()
         {
-            var env = Pinwheel().GeometryA;
+            var env = Pinwheel().Geometry;
             var rng = new Random();
 
             int n = env.Count;
@@ -139,7 +139,7 @@ namespace Rhino.Ibis.Test
 
         public static CurvesRelation ShuffledPairedPinwheel()
         {
-            var env = PairedPinwheel().GeometryA;
+            var env = PairedPinwheel().Geometry;
             var rng = new Random();
 
             int n = env.Count;
