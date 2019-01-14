@@ -14,7 +14,7 @@ namespace Rhino.Ibis.Reviews.Curves
         public static void GroupsByColinearity(CurvesRelation source)
         {
             //Initialize collections.
-            var groupsByColinearity = new List<List<Curve>>(source.Geometry.Count);
+            var groupsByColinearity = new List<List<Rhino.Geometry.Curve>>(source.Geometry.Count);
             var groupsByColinearityIndexMap = new List<int>(source.Geometry.Count);
 
             //Extend each curve (linear only) an arbitrarily large dimension.
@@ -109,7 +109,7 @@ namespace Rhino.Ibis.Reviews.Curves
                 else
                 {
                     //Make new group for this curve.
-                    groupsByColinearity.Add(new List<Curve> { source.Geometry[i] });
+                    groupsByColinearity.Add(new List<Rhino.Geometry.Curve> { source.Geometry[i] });
 
                     //Note its placement.
                     groupsByColinearityIndexMap.Add(groupsByColinearity.Count - 1);
