@@ -1,5 +1,7 @@
 # Rhino.Ibis
 
+[![Build status](https://dev.azure.com/ourchitecture/rhino.ibis/_apis/build/status/rhino.ibis_syntax)](https://dev.azure.com/ourchitecture/rhino.ibis/_build/latest?definitionId=2)
+
 The Ibis rests on top of the Rhino and just makes things a little better with its existence.
 
 This library (**still very incomplete**) exposes a collection of relational geometry logic and enforces a common fluent syntax. I started this project to make my life easier. Take the following "fake" collection of methods I had in a project:
