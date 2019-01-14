@@ -6,46 +6,37 @@ using System.Threading.Tasks;
 using Rhino.Geometry;
 using Rhino.Geometry.Intersect;
 using Rhino.Ibis.Reviews;
-using Rhino.Ibis.Options;
+using Rhino.Ibis.Reviews.CurveToCurve;
 
 namespace Rhino.Ibis.Relations
 {
     public class CurveToCurveRelation
     {
-        //Test and target geometry.
+        //Related geometry
         public Curve GeometryA { get; set; }
         public Curve GeometryB { get; set; }
 
-        //Result properties (get; private set;)
-        public CurveToCurveReviewResults ResultsA { get; set; }
-        public CurveToCurveReviewResults ResultsB { get; set; }
+        //Relation properties
+        public CurveToCurveRelationProperties PropertiesA { get; set; }
+        public CurveToCurveRelationProperties PropertiesB { get; set; }
 
-        //Review methods.
+        //Review methods class
         private CurveToCurveReview _reviewMethods;
         public CurveToCurveReview ReviewMethods
         {
-            get
-            {
-                return _reviewMethods;
-            }
-            set
-            {
-                _reviewMethods = value;
-            }
+            get => _reviewMethods;
+            set => _reviewMethods = value;
         }
 
-        //Review options.
-        public CurveToCurveOptions ReviewOptions { get; set; }
-
-        public CurveToCurveRelation(Curve testCurve, Curve targetCurve)
+        public CurveToCurveRelation(Curve curveA, Curve curveB)
         {
+            GeometryA = curveA;
+            GeometryB = curveB;
+
+            PropertiesA = new CurveToCurveRelationProperties();
+            PropertiesB = new CurveToCurveRelationProperties();
+
             ReviewMethods = new CurveToCurveReview(this);
-
-            GeometryA = testCurve;
-            GeometryB = targetCurve;
-
-            ResultsA = new CurveToCurveReviewResults();
-            ResultsB = new CurveToCurveReviewResults();
         }
 
         public CurveToCurveReview Resolve()
@@ -67,87 +58,85 @@ namespace Rhino.Ibis.Relations
             results = this;
         }
 
-        public void Review(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        public void Review(out CurveToCurveRelationProperties resultsA, out CurveToCurveRelationProperties resultsB)
         {
             //Review with all methods.
 
-            resultsA = ResultsA;
-            resultsB = ResultsB;
+            resultsA = PropertiesA;
+            resultsB = PropertiesB;
         }
 
-        public CurveToCurveRelation Review(CurveToCurveOptions options)
+        public CurveToCurveRelation Review(CurveToCurveReviewOptions options)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
             return this;
         }
 
-        public void Review(CurveToCurveOptions options, out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        public void Review(CurveToCurveReviewOptions options, out CurveToCurveRelationProperties resultsA, out CurveToCurveRelationProperties resultsB)
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
-            resultsA = ResultsA;
-            resultsB = ResultsB;
+            resultsA = PropertiesA;
+            resultsB = PropertiesB;
         }
     }
 
-    public class CurveToCurveReviewResults
+    public class CurveToCurveRelationProperties
     {
-        private bool _intersectionExistsRun;
+        /* IfIntersectionExists() */
+        private bool _intersectionExistsResolved;
         private bool _intersectionExists;
         public bool IntersectionExists
         {
             get
             {
-                if (!_intersectionExistsRun)
-                {
-                    throw new TestNotRunException();
-                }
-
+                if (!_intersectionExistsResolved) throw new UnresolvedPropertyException();
                 return _intersectionExists;
             }
             set
             {
-                _intersectionExistsRun = true;
+                _intersectionExistsResolved = true;
                 _intersectionExists = value;
             }
         }
 
-        public CurveToCurveReviewResults()
+        /* PointsFromIntersection() */
+        private bool _uniquePointsFromIntersectionResolved;
+        private List<Point3d> _uniquePointsFromIntersection;
+        public List<Point3d> UniquePointsFromIntersection
         {
-
-        }
-    }
-
-    public class CurveToCurveReview
-    {
-        public CurveToCurveRelation Source { get; set; }
-
-        public CurveToCurveReview(CurveToCurveRelation source)
-        {
-            Source = source;
-        }
-
-        public CurveToCurveRelation Results()
-        {
-            return Source;
+            get
+            {
+                if (!_uniquePointsFromIntersectionResolved) throw new UnresolvedPropertyException();
+                return _uniquePointsFromIntersection;
+            }
+            set
+            {
+                _uniquePointsFromIntersectionResolved = true;
+                _uniquePointsFromIntersection = value;
+            }
         }
 
-        public void Results(out CurveToCurveReviewResults resultsA, out CurveToCurveReviewResults resultsB)
+        private bool _allPointsFromIntersectionResolved;
+        private List<Point3d> _allPointsFromIntersection;
+        public List<Point3d> AllPointsFromIntersection
         {
-            resultsA = Source.ResultsA;
-            resultsB = Source.ResultsB;
+            get
+            {
+                if (!_allPointsFromIntersectionResolved) throw new UnresolvedPropertyException();
+                return _allPointsFromIntersection;
+            }
+            set
+            {
+                _allPointsFromIntersectionResolved = true;
+                _allPointsFromIntersection = value;
+            }
         }
 
-        public CurveToCurveReview IfIntersectionExists()
+        public CurveToCurveRelationProperties()
         {
-            var ccx = Intersection.CurveCurve(Source.GeometryA, Source.GeometryB, 0.1, 0.1);
-            var res = ccx.Any(x => x.IsPoint);
 
-            Source.ResultsA.IntersectionExists = true;
-            Source.ResultsB.IntersectionExists = true;
-
-            return this;
         }
     }
 }
