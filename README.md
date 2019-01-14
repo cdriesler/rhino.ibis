@@ -1,18 +1,18 @@
 # Rhino.Ibis
 
-The Ibis is a bird that like to rest on top of a Rhino. It just makes things a little better with its existence.
+The Ibis rests on top of the Rhino and just makes things a little better with its existence.
 
-This library (**still very incomplete**) exposes and streamlines a collection of relational geometry methods under a common fluent syntax. I started this project to make my life easier. Take the following "fake" collection of methods I had in a project:
+This library (**still very incomplete**) exposes a collection of relational geometry logic and enforces a common fluent syntax. I started this project to make my life easier. Take the following "fake" collection of methods I had in a project:
 
 ```csharp
 
-bool VerifyCurveIsMostlyContained(Curve crv, Curve region) 
+bool VerifyCurveIsMostlyContained(Curve crv, Curve region) { }
 
-bool CurveIntersectsRegion(Curve crv, Curve region) 
+bool CurveIntersectsRegion(Curve crv, Curve region) { }
 
-bool CurveIsContainedByRegion(Curve crv, Curve region)
+bool CurveIsContainedByRegion(Curve crv, Curve region) { }
 
-CurveContainmentPackage FindSegmentsByRegionIntersection(Curve crv, Curve region)
+CurveContainmentPackage FindSegmentsByRegionIntersection(Curve crv, Curve region) { }
 
 ```
 
