@@ -66,6 +66,7 @@ namespace Rhino.Ibis.Relations
 
     public class CurvesRelationProperties
     {
+        /* GroupsByColinearity */
         private bool _groupsByColinearityResolved;
         private List<List<Curve>> _groupsByColinearity;
         public List<List<Curve>> GroupsByColinearity
