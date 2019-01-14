@@ -87,6 +87,11 @@
     <Compile Include="Reviews\Curves\GroupsByColinearity.cs" />
     <Compile Include="Reviews\CurveToCurve\IfIntersectionExistsSpecs.cs" />
     <Compile Include="Reviews\CurveToCurve\PointsFromIntersectionSpecs.cs" />
+    <Compile Include="Syntax\IbisClassDictionary.cs" />
+    <Compile Include="Syntax\RelationPropertiesSpecs.cs" />
+    <Compile Include="Syntax\RelationSpecs.cs" />
+    <Compile Include="Syntax\ReviewOptionSpecs.cs" />
+    <Compile Include="Syntax\ReviewSpecs.cs" />
     <Compile Include="TestEnvironments.cs" />
     <Compile Include="TestInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

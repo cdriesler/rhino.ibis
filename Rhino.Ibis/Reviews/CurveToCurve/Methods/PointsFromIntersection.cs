@@ -18,13 +18,13 @@ namespace Rhino.Ibis.Reviews.CurveToCurve
                 .Select(x => x.PointA)
                 .ToList();
 
-            source.ResultsA.AllPointsFromIntersection = pts;
-            source.ResultsB.AllPointsFromIntersection = pts;
+            source.PropertiesA.AllPointsFromIntersection = pts;
+            source.PropertiesB.AllPointsFromIntersection = pts;
 
             var uniquePts = Point3d.CullDuplicates(pts, 0.1).ToList();
 
-            source.ResultsA.UniquePointsFromIntersection = uniquePts;
-            source.ResultsB.UniquePointsFromIntersection = uniquePts;
+            source.PropertiesA.UniquePointsFromIntersection = uniquePts;
+            source.PropertiesB.UniquePointsFromIntersection = uniquePts;
         }
     }
 }

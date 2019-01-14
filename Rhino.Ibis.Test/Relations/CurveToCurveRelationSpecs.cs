@@ -28,7 +28,7 @@ namespace Rhino.Ibis.Test.Relations
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
 
-            Action act = () => { var x = rel.ResultsA.AllPointsFromIntersection; };
+            Action act = () => { var x = rel.PropertiesA.AllPointsFromIntersection; };
             act.Should().Throw<UnresolvedPropertyException>("because the property was read before it was actually resolved");
         }
 
@@ -37,7 +37,7 @@ namespace Rhino.Ibis.Test.Relations
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
 
-            Action act = () => { var x = rel.ResultsA.IntersectionExists; };
+            Action act = () => { var x = rel.PropertiesA.IntersectionExists; };
             act.Should().Throw<UnresolvedPropertyException>("because the property was read before it was actually resolved");
         }
 
@@ -46,7 +46,7 @@ namespace Rhino.Ibis.Test.Relations
         {
             var rel = TestEnvironments.CenteredVertical_CenteredHorizontal();
 
-            Action act = () => { var x = rel.ResultsA.UniquePointsFromIntersection; };
+            Action act = () => { var x = rel.PropertiesA.UniquePointsFromIntersection; };
             act.Should().Throw<UnresolvedPropertyException>("because the property was read before it was actually resolved");
         }
 

@@ -26,8 +26,8 @@ namespace Rhino.Ibis.Reviews.CurveToCurve
 
         public void Results(out CurveToCurveRelationProperties resultsA, out CurveToCurveRelationProperties resultsB)
         {
-            resultsA = Source.ResultsA;
-            resultsB = Source.ResultsB;
+            resultsA = Source.PropertiesA;
+            resultsB = Source.PropertiesB;
         }
 
         #region handshake methods

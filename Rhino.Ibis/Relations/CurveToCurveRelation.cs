@@ -17,32 +17,26 @@ namespace Rhino.Ibis.Relations
         public Curve GeometryB { get; set; }
 
         //Relation properties
-        public CurveToCurveRelationProperties ResultsA { get; set; }
-        public CurveToCurveRelationProperties ResultsB { get; set; }
+        public CurveToCurveRelationProperties PropertiesA { get; set; }
+        public CurveToCurveRelationProperties PropertiesB { get; set; }
 
         //Review methods class
         private CurveToCurveReview _reviewMethods;
         public CurveToCurveReview ReviewMethods
         {
-            get
-            {
-                return _reviewMethods;
-            }
-            set
-            {
-                _reviewMethods = value;
-            }
+            get => _reviewMethods;
+            set => _reviewMethods = value;
         }
 
-        public CurveToCurveRelation(Curve testCurve, Curve targetCurve)
+        public CurveToCurveRelation(Curve curveA, Curve curveB)
         {
+            GeometryA = curveA;
+            GeometryB = curveB;
+
+            PropertiesA = new CurveToCurveRelationProperties();
+            PropertiesB = new CurveToCurveRelationProperties();
+
             ReviewMethods = new CurveToCurveReview(this);
-
-            GeometryA = testCurve;
-            GeometryB = targetCurve;
-
-            ResultsA = new CurveToCurveRelationProperties();
-            ResultsB = new CurveToCurveRelationProperties();
         }
 
         public CurveToCurveReview Resolve()
@@ -68,8 +62,8 @@ namespace Rhino.Ibis.Relations
         {
             //Review with all methods.
 
-            resultsA = ResultsA;
-            resultsB = ResultsB;
+            resultsA = PropertiesA;
+            resultsB = PropertiesB;
         }
 
         public CurveToCurveRelation Review(CurveToCurveReviewOptions options)
@@ -83,8 +77,8 @@ namespace Rhino.Ibis.Relations
         {
             ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
 
-            resultsA = ResultsA;
-            resultsB = ResultsB;
+            resultsA = PropertiesA;
+            resultsB = PropertiesB;
         }
     }
 
