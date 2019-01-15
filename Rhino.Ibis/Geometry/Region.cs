@@ -7,8 +7,18 @@ using Rhino.Geometry;
 
 namespace Rhino.Geometry
 {
+    /// <summary>
+    /// [Rhino.Ibis Geometry] A closed and planar curve.
+    /// </summary>
     public class Region
     {
+        public Curve Curve { get; set; }
+        public Plane Plane { get; set; }
+
+        /// <summary>
+        /// [Rhino.Ibis Geometry] A closed and planar curve.
+        /// </summary>
+        /// <param name="curve"></param>
         public Region(Curve curve)
         {
 
