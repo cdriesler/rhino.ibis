@@ -2,49 +2,42 @@
 
 [![Build status](https://dev.azure.com/ourchitecture/rhino.ibis/_apis/build/status/rhino.ibis_syntax)](https://dev.azure.com/ourchitecture/rhino.ibis/_build/latest?definitionId=2) [![NuGet Version](https://img.shields.io/myget/rhino-ibis/v/rhino.ibis.svg?label=NuGet)](https://www.myget.org/feed/Packages/rhino-ibis)
 
-The Ibis rests on top of the Rhino and just makes things a little better with its existence.
+The Ibis rests on top of the Rhino and just makes things a little better with its existence. 
 
-This library (**still very incomplete**) exposes a collection of relational geometry logic and enforces a common fluent syntax. I started this project to make my life easier. Take the following "fake" collection of methods I had in a project:
+The Ibis library packages relational geometric logic and exposes it using a common "fluent" syntax. Take the following example:
 
-```csharp
-
-bool VerifyCurveIsMostlyContained(Curve crv, Curve region) { }
-
-bool CurveIntersectsRegion(Curve crv, Curve region) { }
-
-bool CurveIsContainedByRegion(Curve crv, Curve region) { }
-
-CurveContainmentPackage FindSegmentsByRegionIntersection(Curve crv, Curve region) { }
-
-```
-
-How am I supposed to know what "mostly contained" means at a glance? Or what it's testing? Will I know what a "CurveContainmentPackage" is in a month? (Answer: no, I didn't.)
-
-Here is the same functionality with Ibis:
+**Note:** The following syntax is still in flux and subject to change any time before v1.X comes out.
 
 ```csharp
 
-Relate.This(crv).To(region)
-	.Resolve()
-	.IfIntersectionExists()
-	.SegmentsInsideRegion()
-	.Results()
+//Normal syntax
+var isContained = CheckIfContained(container, point);  
+
+//Ibis fluent syntax
+Given.This(container).And().That(point).VerifyThisContainsThat(out var isContained)
 
 ```
 
-Or, a little shorter, if I preconfigure a set of tests that I know will be run a lot:
+Ibis prioritizes code legibility and precision of intent. Still, that's only preference. And in this example, the Ibis implementation is longer! The second strength of Ibis, though, is the ability to chain methods. Complexity can be increased without sacrificing legibility.
 
 ```csharp
 
-var opts = new CurveToRegionOptions() 
-{
-	DoIfIntersectionExists = true,
-	DoSegmentsInsideRegion = true
-}
-
-Relate.This(crv).To(region).Review(opts)
-Relate.This(otherCrv).To(otherRegion).Review(opts)
+Given.These(curves)
+	.LocateLongestCurve(out var crv)
+	.AssessAverageCurveLength(out var length)
+	.And().Those(points)
+	.VerifyThoseOutnumberThis(out var isMorePoints)
+	.CreateCircles(length, out var circles)
+	.CreateTriangles(out var triangles)
 
 ```
 
-Hopefully in a few months I would still understand what's happening here.
+Some methods, like `CreateTriangles()`, perform an operation using the related geometry. Others, like `CreateCircles()`, have arguments that can come from earlier relations.
+
+This library came together because of a problem in my own workflow. "Why am I rewriting similar geometric methods all the time?" constantly followed up later by "What does this method even do? I need to write one that works for this case." Thoughts about a standard naming convention (that some future person probably wouldn't think makes sense) evolved into thoughts about merging it with the logic.
+
+The project is structured with collaboration in mind. Notes on where to put logic will be ready soon, hopefully.
+
+
+
+
