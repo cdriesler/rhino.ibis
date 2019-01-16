@@ -9,12 +9,12 @@ namespace Rhino.Ibis.Logic.Region
 {
     public static partial class RegionLogic
     {
-        public static bool VerifyThisHasFourEqualSides(RegionRelation rel)
+        public static bool VerifyThisHasFourEqualSides(Rhino.Geometry.Region region)
         {
             var spans = new List<Curve>();
             var tList = new List<double>();
 
-            var crv = rel.ThisGeometry.Curve.DuplicateCurve();
+            var crv = region.Curve.DuplicateCurve();
 
             for (int i = 0; i < crv.SpanCount; i++)
             {

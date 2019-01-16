@@ -8,15 +8,19 @@ namespace Rhino.Ibis.Relations
 {
     public class RegionRelation
     {
-        public Region ThisGeometry { get; }
+        //Related geometry
+        private Region ThisGeometry { get; }
 
+        //Relationship properties
         private bool HasFourEqualSides { get; set; }
 
-        public RegionRelation(Region thisGeometry)
+        //Constructor
+        public RegionRelation(Region thisRegion)
         {
-            ThisGeometry = thisGeometry;
+            ThisGeometry = thisRegion;
         }
 
+        //H(and)shake class and method
         public RegionRelationHandshake And()
         {
             return new RegionRelationHandshake(ThisGeometry);
@@ -37,10 +41,34 @@ namespace Rhino.Ibis.Relations
             }
         }
 
-        public void VerifyThisHasFourEqualSides(out bool hasFourEqualSides)
+        //Generic get class and method
+        public RegionRelationProperties Get()
         {
-            HasFourEqualSides = RegionLogic.VerifyThisHasFourEqualSides(this);
+            return new RegionRelationProperties(ThisGeometry);
+        }
+
+        public class RegionRelationProperties
+        {
+            //Geometry getters
+            public Region ThisRegion { get; }
+
+            //Single property getters
+            public bool HasFourEqualSides => RegionLogic.VerifyThisHasFourEqualSides(ThisRegion);
+
+            //Constructor
+            public RegionRelationProperties(Region region)
+            {
+                ThisRegion = region;
+            }
+        }
+
+        //Public methods
+        public RegionRelation VerifyThisHasFourEqualSides(out bool hasFourEqualSides)
+        {
+            HasFourEqualSides = RegionLogic.VerifyThisHasFourEqualSides(ThisGeometry);
             hasFourEqualSides = HasFourEqualSides;
+
+            return this;
         }      
     }
 }

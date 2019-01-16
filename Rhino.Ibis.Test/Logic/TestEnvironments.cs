@@ -10,6 +10,8 @@ namespace Rhino.Ibis.Test.Logic
 {
     public static class TestEnvironments
     {
+        //TODO: Refactor to only give geometry again.
+
         #region Curves
 
         public static CurvesRelation CrossingCurves()
@@ -20,7 +22,7 @@ namespace Rhino.Ibis.Test.Logic
                 new LineCurve(new Point3d(0, -2, 0), new Point3d(0, 2, 0))
             };
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation CrossingDashedCurves()
@@ -33,7 +35,7 @@ namespace Rhino.Ibis.Test.Logic
                 new LineCurve(new Point3d(0, 1, 0), new Point3d(0, 2, 0))
             };
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation HorizontalDashedLine()
@@ -45,7 +47,7 @@ namespace Rhino.Ibis.Test.Logic
                 new LineCurve(new Point3d(4, 0, 0), new Point3d(5, 0, 0))
             };
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation ParallelOffsetCurves()
@@ -56,7 +58,7 @@ namespace Rhino.Ibis.Test.Logic
                 new LineCurve(new Point3d(2, 0, 0), new Point3d(2, 1, 0))
             };
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation ParallelOffsetCurvesOneDashed()
@@ -68,7 +70,7 @@ namespace Rhino.Ibis.Test.Logic
                 new LineCurve(new Point3d(2, 0, 0), new Point3d(2, 1, 0))
             };
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation Pinwheel()
@@ -85,7 +87,7 @@ namespace Rhino.Ibis.Test.Logic
                 new LineCurve(Point3d.Origin, new Point3d(-1, 1, 0))
             };
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation PairedPinwheel()
@@ -116,12 +118,12 @@ namespace Rhino.Ibis.Test.Logic
 
             env.AddRange(envB);
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation ShuffledPinwheel()
         {
-            var env = Pinwheel().Geometry;
+            var env = Pinwheel().Get().TheseCurves;
             var rng = new Random();
 
             int n = env.Count;
@@ -134,12 +136,12 @@ namespace Rhino.Ibis.Test.Logic
                 env[n] = val;
             }
 
-            return Relate.This(env);
+            return Given.These(env);
         }
 
         public static CurvesRelation ShuffledPairedPinwheel()
         {
-            var env = PairedPinwheel().Geometry;
+            var env = PairedPinwheel().Get().TheseCurves;
             var rng = new Random();
 
             int n = env.Count;
@@ -152,19 +154,7 @@ namespace Rhino.Ibis.Test.Logic
                 env[n] = val;
             }
 
-            return Relate.This(env);
-        }
-
-        #endregion
-
-        #region CurveToCurve
-
-        public static CurveToCurveRelation CenteredVertical_CenteredHorizontal()
-        {
-            var geoA = new LineCurve(new Point3d(0, -1, 0), new Point3d(0, 1, 0)).ToNurbsCurve();
-            var geoB = new LineCurve(new Point3d(-1, 0, 0), new Point3d(1, 0, 0)).ToNurbsCurve();
-
-            return Relate.This(geoA).To(geoB);
+            return Given.These(env);
         }
 
         #endregion

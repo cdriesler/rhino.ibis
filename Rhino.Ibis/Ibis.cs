@@ -8,29 +8,21 @@ using Rhino.Ibis.Relations;
 
 namespace Rhino.Ibis
 {
-    public static class Relate
-    {
-        public static CurveRelation This(Curve curve)
-        {
-            return new CurveRelation(curve);
-        }
-
-        public static CurvesRelation This(List<Curve> curves)
-        {
-            return new CurvesRelation(curves);
-        }
-
-        public static PointRelation This(Point3d point)
-        {
-            return new PointRelation();
-        }
-    }
-
-    public static class Given
+    //This
+    public static partial class Given
     {
         public static RegionRelation This(Region region)
         {
             return new RegionRelation(region);
+        }
+    }
+
+    //These
+    public static partial class Given
+    {
+        public static CurvesRelation These(List<Curve> curves)
+        {
+            return new CurvesRelation(curves);
         }
     }
 }
