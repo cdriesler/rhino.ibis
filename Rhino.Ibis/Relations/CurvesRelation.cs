@@ -1,107 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Rhino.Geometry;
-using Rhino.Ibis.Reviews;
-using Rhino.Ibis.Reviews.Curves;
+using Rhino.Ibis.Logic.Curves;
 
 namespace Rhino.Ibis.Relations
 {
     public class CurvesRelation
     {
         //Related geometry
-        public List<Curve> Geometry { get; set; }
+        private List<Curve> TheseGeometry { get; }
 
-        //Relation properties
-        public CurvesRelationProperties Properties { get; set; }
-
-        //Review methods
-        private CurvesReview _reviewMethods;
-        public CurvesReview ReviewMethods
+        //Constructor
+        public CurvesRelation(List<Curve> theseCurves)
         {
-            get => _reviewMethods;
-            set => _reviewMethods = value;
+            TheseGeometry = theseCurves;
         }
 
-        public CurvesRelation(List<Curve> curves)
+        //H(and)shake class and method
+        public CurvesRelationHandshake And()
         {
-            Geometry = curves;
-
-            Properties = new CurvesRelationProperties();
-
-            ReviewMethods = new CurvesReview(this);
+            return new CurvesRelationHandshake(TheseGeometry);
         }
 
-        public CurvesReview Resolve()
+        public class CurvesRelationHandshake
         {
-            return ReviewMethods;
+            private List<Curve> StagedCurves { get; }
+
+            public CurvesRelationHandshake(List<Curve> staged)
+            {
+                StagedCurves = staged;
+            }
         }
 
-        public CurvesRelation Review()
+        //Generic get class and method
+        public CurvesRelationProperties Get()
         {
+            return new CurvesRelationProperties(TheseGeometry);
+        }
+
+        public class CurvesRelationProperties
+        {
+            //Geometry getters
+            public List<Curve> TheseCurves { get; }
+
+            //Single property getters
+            public Curve LongestCurve => CurvesLogic.LocateLongestCurve(TheseCurves);
+
+            //Constructor
+            public CurvesRelationProperties(List<Curve> crvs)
+            {
+                TheseCurves = crvs;
+            }
+        }
+
+        //Public methods
+        public CurvesRelation LocateLongestCurve(out Curve longestCurve)
+        {
+            longestCurve = CurvesLogic.LocateLongestCurve(TheseGeometry);
             return this;
         }
 
-        public void Review(out CurvesRelationProperties results)
-        {
-            results = this.Properties;
-        }
-
-        public CurvesRelation Review(CurvesReviewOptions options)
-        {
-            ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
-
-            return this;
-        }
-
-        public void Review(CurvesReviewOptions options, out CurvesRelationProperties results)
-        {
-            ReviewUtils.ReviewWithOptions(ref _reviewMethods, ref options);
-
-            results = this.Properties;
-        }
-    }
-
-    public class CurvesRelationProperties
-    {
-        /* GroupsByColinearity */
-        private bool _groupsByColinearityResolved;
-        private List<List<Curve>> _groupsByColinearity;
-        public List<List<Curve>> GroupsByColinearity
-        {
-            get
-            {
-                if (!_groupsByColinearityResolved) throw new UnresolvedPropertyException();
-                return _groupsByColinearity;
-            }
-            set
-            {
-                _groupsByColinearityResolved = true;
-                _groupsByColinearity = value;
-            }
-        }
-
-        private bool _groupsByColinearityIndexMapResolved;
-        private List<int> _groupsByColinearityIndexMap;
-        public List<int> GroupsByColinearityIndexMap
-        {
-            get
-            {
-                if (!_groupsByColinearityIndexMapResolved) throw new UnresolvedPropertyException();
-                return _groupsByColinearityIndexMap;
-            }
-            set
-            {
-                _groupsByColinearityIndexMapResolved = true;
-                _groupsByColinearityIndexMap = value;
-            }
-        }
-
-        public CurvesRelationProperties()
-        {
-
-        }
     }
 }
