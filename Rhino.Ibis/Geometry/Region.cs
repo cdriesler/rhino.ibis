@@ -21,7 +21,10 @@ namespace Rhino.Geometry
         /// <param name="curve"></param>
         public Region(Curve curve)
         {
+            Curve = curve;
+            Curve.TryGetPlane(out var plane);
 
+            if (plane != null) Plane = plane;
         }
     }
 }
