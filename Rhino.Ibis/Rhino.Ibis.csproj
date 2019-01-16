@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Chuck Driesler</Authors>
+    <Product />
+    <RepositoryUrl>https://github.com/cdriesler/rhino.ibis</RepositoryUrl>
+    <PackageTags>RhinoCommon</PackageTags>
+    <PackageIconUrl>https://github.com/cdriesler/rhino.ibis/blob/master/icon.png?raw-true</PackageIconUrl>
+    <PackageLicenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</PackageLicenseUrl>
+    <Description>RhinoCommon relational geometry methods wrapped in a fluent syntax.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="RhinoCommon" Version="6.11.18348.17061" />
