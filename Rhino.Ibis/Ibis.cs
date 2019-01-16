@@ -25,4 +25,12 @@ namespace Rhino.Ibis
             return new PointRelation();
         }
     }
+
+    public static class Given
+    {
+        public static RegionRelation This(Region region)
+        {
+            return new RegionRelation(region);
+        }
+    }
 }

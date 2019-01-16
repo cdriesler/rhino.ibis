@@ -27,12 +27,12 @@ Given.These(curves)
 	.AssessAverageCurveLength(out var length)
 	.And().Those(points)
 	.VerifyThoseOutnumberThis(out var isMorePoints)
-	.CreateCircles(length, out var circles)
-	.CreateTriangles(out var triangles)
+	.CreateCirclesCenteredOnPoints(length, out var circles)
+	.LocatePointsOnCurves(out var pts)
 
 ```
 
-Some methods, like `CreateTriangles()`, perform an operation using the related geometry. Others, like `CreateCircles()`, have arguments that can come from earlier relations.
+Some methods, like `LocatePointsOnCurves()`, perform an operation using the related geometry. Others, like `CreateCircles()`, have arguments that can come from earlier relations.
 
 This library came together because of a problem in my own workflow. "Why am I rewriting similar geometric methods all the time?" constantly followed up later by "What does this method even do? I need to write one that works for this case." Thoughts about a standard naming convention (that some future person probably wouldn't think makes sense) evolved into thoughts about merging it with the logic.
 
