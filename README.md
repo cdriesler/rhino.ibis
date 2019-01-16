@@ -11,10 +11,10 @@ The Ibis library packages relational geometric logic and exposes it using a comm
 ```csharp
 
 //Normal syntax
-var isContained = CheckIfContained(container, point);  
+var segments = GetSegmentsInsideRegion(region, curve);  
 
 //Ibis fluent syntax
-Given.This(container).And().That(point).VerifyThisContainsThat(out var isContained)
+Given.This(region).And().That(curve).Get().SegmentsInsideRegion;
 
 ```
 
