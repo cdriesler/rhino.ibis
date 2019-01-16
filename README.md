@@ -1,6 +1,6 @@
 # Rhino.Ibis
 
-[![Build status](https://dev.azure.com/ourchitecture/rhino.ibis/_apis/build/status/rhino.ibis_syntax)](https://dev.azure.com/ourchitecture/rhino.ibis/_build/latest?definitionId=2) [![NuGet Version](https://img.shields.io/myget/rhino-ibis/v/rhino.ibis.svg?label=NuGet)](https://www.myget.org/feed/Packages/rhino-ibis)
+[![Build status](https://dev.azure.com/ourchitecture/rhino.ibis/_apis/build/status/rhino.ibis_syntax)](https://dev.azure.com/ourchitecture/rhino.ibis/_build/latest?definitionId=2) [![NuGet Version](https://img.shields.io/myget/rhino-ibis/v/rhino.ibis.svg?label=NuGet)](https://myget.org/feed/rhino-ibis/package/nuget/Rhino.Ibis)
 
 The Ibis rests on top of the Rhino and just makes things a little better with its existence. 
 
