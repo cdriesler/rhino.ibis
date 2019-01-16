@@ -5,7 +5,7 @@
     <Product />
     <RepositoryUrl>https://github.com/cdriesler/rhino.ibis</RepositoryUrl>
     <PackageTags>RhinoCommon</PackageTags>
-    <PackageIconUrl>https://github.com/cdriesler/rhino.ibis/blob/master/icon.png?raw-true</PackageIconUrl>
+    <PackageIconUrl>https://github.com/cdriesler/rhino.ibis/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</PackageLicenseUrl>
     <Description>RhinoCommon relational geometry methods wrapped in a fluent syntax.</Description>
   </PropertyGroup>
