@@ -14,6 +14,8 @@ namespace Rhino.Ibis.Relations
         {
             ThisGeometry = thisGeometry;
             ThatGeometry = thatGeometry;
+
+            var x = "TO";
         }
     }
 }

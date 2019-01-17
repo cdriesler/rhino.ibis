@@ -1,0 +1,176 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="$(SolutionDir)\Rhino.Ibis\bin\Rhino.Ibis.dll" #>
+<#@ import namespace="Rhino.Ibis.Logic" #>
+<#@ assembly name="$(SolutionDir)\packages\RhinoCommon.6.11.18348.17061\lib\net45\RhinoCommon.dll" #>
+<#@ import namespace="Rhino.Geometry" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+<# var types = new string [] {"Curves", "Region"}; #>
+<# var ignoreMethods = new List<string> { "ToString", "Equals", "GetHashCode", "GetType" }; #>
+<# var logic = new Dictionary<string, List<System.Reflection.MethodInfo>>()
+{
+	{ "Curves", typeof(Rhino.Ibis.Logic.Curves.CurvesLogic).GetMethods().Where(x => !ignoreMethods.Contains(x.Name)).ToList() },
+	{ "Region", typeof(Rhino.Ibis.Logic.Region.RegionLogic).GetMethods().Where(x => !ignoreMethods.Contains(x.Name)).ToList() }
+};
+#>
+<# foreach (string type in types) { 
+var typeA = "";
+var typeB = "";
+var varTypeA = "";
+var varTypeB = "";
+
+if (type.Contains("To")) {
+	var dat = type.Split(new[] {"To"}, StringSplitOptions.None);
+	typeA = dat[0];
+	typeB = dat[1];
+
+	if (typeA[typeA.Length - 1] == 's') 
+	{
+		varTypeA = $"List<{type.Substring(0, type.Length - 1)}>";
+	}
+	else
+	{
+		varTypeA = typeA;
+	}
+
+	if (typeB[typeB.Length - 1] == 's') 
+	{
+		varTypeB = $"List<{type.Substring(0, type.Length - 1)}>";
+	}
+	else
+	{
+		varTypeB = type;
+	}
+}
+else 
+{
+	if (type[type.Length - 1] == 's') 
+	{
+		varTypeA = $"List<{type.Substring(0, type.Length - 1)}>";
+	}
+	else
+	{
+		varTypeA = type;
+	}
+}
+
+
+#>
+using System;
+using System.Collections.Generic;
+using Rhino.Geometry;
+using Rhino.Ibis.Logic.<#= type #>;
+
+//NOTE: This class is automatically generated. Any manual edits will be overwritten.
+
+namespace Rhino.Ibis.Relations
+{
+	public class <#= type #>Relation
+	{
+		//Related geometry
+		private <# if (type.Contains("To")) 
+		{ #>
+<#= varTypeA #> ThisGeometry { get; }
+<#= varTypeB #> ThatGeometry { get; }		
+		<# }
+		else 
+		{ #>
+<#= varTypeA #> ThisGeometry { get; }
+		<# } #>
+
+		//Constructor
+		<# if (type.Contains("To"))
+		{#>
+public <#= type #>Relation(<#= varTypeA #> <#= typeA #>, <#= varTypeB #> <#= typeB #>)
+		{
+			ThisGeometry = <#= typeA #>;
+			ThatGeometry = <#= typeB #>;
+		}
+		<# }
+		else
+		{ #>
+public <#= type #>Relation(<#= varTypeA #> <#= type #>)
+		{
+			ThisGeometry = <#= type #>;
+		}
+		<# } #>
+		<# if (!type.Contains("To")) 
+		{ #>
+
+		//H(and)shake class and method
+		public <#= type #>RelationHandshake And()
+		{
+			return new <#= type #>RelationHandshake(ThisGeometry);
+		}
+
+		public class <#= type #>RelationHandshake
+		{
+			private <#= varTypeA #> Staged { get; }
+
+			public <#= type #>RelationHandshake(<#= varTypeA #> staged) 
+			{
+				Staged = staged;
+			}
+		}
+		<# } #>
+
+		//Generic get class and method
+		public <#= type #>RelationProperties Get()
+		{
+			return new <#= type #>RelationProperties(ThisGeometry <# if (varTypeB != "") { #> , ThatGeometry <# } #>);
+		}
+
+		public class <#= type #>RelationProperties
+		{
+			//Geometry getters
+			public <#= varTypeA #> ThisGeometry { get; }
+			<# if (varTypeB != "") { #> public <#= varTypeB #> ThatGeometry { get; } <# } #>
+
+			//Single property getters
+			<# foreach (var method in logic[type])
+			{ #>
+public <#= method.ReturnType.Name #> <#= method.Name.Substring(6) #> => <#= type #>Logic.<#= method.Name #>(ThisGeometry <# if (varTypeB != "") { #> , ThatGeometry <# } #>);
+			<# } #>
+
+			//Constructor
+			public <#= type #>RelationProperties(<#= varTypeA #> thisGeo <# if (varTypeB != "") { #> , <#= varTypeB #> thatGeo <# } #>)
+			{
+				ThisGeometry = thisGeo;
+				<# if (varTypeB != "") { #> ThatGeometry = thatGeo; <# } #>
+			}
+		}
+		
+		//Public methods
+		<# foreach (var method in logic[type])
+		{ #>
+public <#= type #>Relation <#= method.Name #>(out <#= method.ReturnType.Name #> <#= method.Name.Substring(6).ToLower() #>)
+		{
+			<#= method.Name.Substring(6).ToLower() #> = <#= type #>Logic.<#= method.Name #>(ThisGeometry <# if (varTypeB != "") { #> , ThatGeometry <# } #>);
+			return this;
+		}
+		<# } #>
+	}
+}
+
+<#
+	SaveOutput(type + "Relation.cs");
+#>
+
+<# }; /* END main foreach */ #>
+
+<#+
+
+private void SaveOutput(string fileName) {
+	  string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+	  string outputFilePath = Path.Combine(templateDirectory.Replace("Templates", "Relations"), fileName);
+	  File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+	  this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
+
+#>
