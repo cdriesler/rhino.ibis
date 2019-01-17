@@ -10,6 +10,10 @@ namespace Rhino.Ibis.Logic
     {
         public static List<Type> GetAvailableRelations()
         {
+            var x = "String";
+
+            x.Split(new[] {"tr"}, StringSplitOptions.None);
+            
             return new List<Type>
             {
                 typeof(CurvesLogic),

@@ -10,33 +10,145 @@
 <#@ output extension=".cs" #>
 
 <# var types = new string [] {"Curves", "Region"}; #>
-<# foreach (string type in types) { #>
+<# foreach (string type in types) { 
+var typeA = "";
+var typeB = "";
+var varTypeA = "";
+var varTypeB = "";
+
+if (type.Contains("To")) {
+	var dat = type.Split(new[] {"To"}, StringSplitOptions.None);
+	typeA = dat[0];
+	typeB = dat[1];
+
+	if (typeA[typeA.Length - 1] == 's') 
+	{
+		varTypeA = $"List<{type.Substring(0, type.Length - 1)}>";
+	}
+	else
+	{
+		varTypeA = typeA;
+	}
+
+	if (typeB[typeB.Length - 1] == 's') 
+	{
+		varTypeB = $"List<{type.Substring(0, type.Length - 1)}>";
+	}
+	else
+	{
+		varTypeB = type;
+	}
+}
+else 
+{
+	if (type[type.Length - 1] == 's') 
+	{
+		varTypeA = $"List<{type.Substring(0, type.Length - 1)}>";
+	}
+	else
+	{
+		varTypeA = type;
+	}
+}
+
+
+#>
 using System;
 using System.Collections.Generic;
 using Rhino.Geometry;
 using Rhino.Ibis.Logic.<#= type #>;
 
+//NOTE: This class is automatically generated. Any manual edits will be overwritten.
+
 namespace Rhino.Ibis.TextTemplateTest
 {
-
 	public class <#= type #>Relation
 	{
 		//Related geometry
 		private <# if (type.Contains("To")) 
 		{ #>
-		
+<#= varTypeA #> ThisGeometry { get; }
+<#= varTypeB #> ThatGeometry { get; }		
 		<# }
 		else 
-		{ 
-			if (type[type.Length - 1] == 's')
-			{ #>
-List<<#= type.Substring(0, type.Length - 1) #>> TheseGeometry { get; set; }
-			<# }
-			else
-			{ #>
-<#= type #> ThisGeometry { get; set; }
-			<# } #>
+		{ #>
+<#= varTypeA #> ThisGeometry { get; }
 		<# } #>
+
+		//Constructor
+		<# if (type.Contains("To"))
+		{#>
+public <#= type #>Relation(<#= varTypeA #> <#= typeA #>, <#= varTypeB #> <#= typeB #>)
+		{
+			ThisGeometry = <#= typeA #>;
+			ThatGeometry = <#= typeB #>;
+		}
+		<# }
+		else
+		{ #>
+public <#= type #>Relation(<#= varTypeA #> <#= type #>)
+		{
+			ThisGeometry = <#= type #>;
+		}
+		<# } #>
+		<# if (!type.Contains("To")) 
+		{ #>
+
+		//H(and)shake class and method
+		public <#= type #>RelationHandshake And()
+		{
+			return new <#= type #>RelationHandshake(ThisGeometry);
+		}
+
+		public class <#= type #>RelationHandshake
+		{
+			private <#= varTypeA #> Staged { get; }
+
+			public <#= type #>RelationHandshake(<#= varTypeA #> staged) 
+			{
+				Staged = staged;
+			}
+		}
+		<# } #>
+
+		//Generic get class and method
+		public <#= type #>RelationProperties Get()
+		{
+			return new <#= type #>RelationProperties(ThisGeometry <# if (varTypeB != "") { #> , ThatGeometry <# } #>);
+		}
+
+		public class <#= type #>RelationProperties
+		{
+			//Geometry getters
+			public <#= varTypeA #> ThisGeometry { get; }
+			<# if (varTypeB != "") { #> public <#= varTypeB #> ThatGeometry { get; } <# } #>
+
+			//Single property getters
+
+			//Constructor
+			public <#= type #>RelationProperties(<#= varTypeA #> thisGeo <# if (varTypeB != "") { #> , <#= varTypeB #> thatGeo <# } #>)
+			{
+				ThisGeometry = thisGeo;
+				<# if (varTypeB != "") { #> ThatGeometry = thatGeo; <# } #>
+			}
+		}
+
+		<# switch(type)
+			{
+				case "Curves": 
+					var methods = typeof(Rhino.Ibis.Logic.Curves.CurvesLogic).GetMethods();
+					
+					foreach (var method in methods) {#>
+					// <#= method.Name #>
+
+				<#	}
+					break;
+				case "Region": #>
+
+				<#	break;
+			}
+
+		#>
 	
 	}
 
