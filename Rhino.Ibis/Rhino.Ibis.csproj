@@ -39,7 +39,7 @@
     </Compile>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="Copy $(OutDir)$(TargetFileName) $(SolutionDir)\bin\$(TargetFileName)" />
+    <Exec Command="Copy $(TargetPath) $(SolutionDir)Rhino.Ibis\bin\$(TargetFileName)" />
   </Target>
 
 </Project>

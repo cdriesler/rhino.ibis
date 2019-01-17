@@ -48,6 +48,7 @@ namespace Rhino.Ibis.Relations
 			
 			//Single property getters
 			public Curve LongestCurve => CurvesLogic.LocateLongestCurve(ThisGeometry );
+			public Curve SortestCurve => CurvesLogic.LocateSortestCurve(ThisGeometry );
 			
 			//Constructor
 			public CurvesRelationProperties(List<Curve> thisGeo )
@@ -60,6 +61,11 @@ namespace Rhino.Ibis.Relations
 		public CurvesRelation LocateLongestCurve(out Curve longestcurve)
 		{
 			longestcurve = CurvesLogic.LocateLongestCurve(ThisGeometry );
+			return this;
+		}
+		public CurvesRelation LocateSortestCurve(out Curve sortestcurve)
+		{
+			sortestcurve = CurvesLogic.LocateSortestCurve(ThisGeometry );
 			return this;
 		}
 			}
