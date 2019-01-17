@@ -13,6 +13,8 @@ namespace Rhino.Ibis.Logic
             var x = "String";
 
             x.Split(new[] {"tr"}, StringSplitOptions.None);
+
+            var dat = typeof(CurvesLogic).GetMethods()[0].ReturnType.Name;
             
             return new List<Type>
             {

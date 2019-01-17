@@ -38,5 +38,8 @@
       <DependentUpon>RelationTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Copy $(OutDir)$(TargetFileName) $(SolutionDir)\bin\$(TargetFileName)" />
+  </Target>
 
 </Project>
