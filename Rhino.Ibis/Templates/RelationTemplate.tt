@@ -1,0 +1,47 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="$(SolutionDir)\Rhino.Ibis\bin\Debug\netstandard2.0\Rhino.Ibis.dll" #>
+<#@ import namespace="Rhino.Ibis.Logic" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+<# var types = new string [] {"Curves", "Region"}; #>
+
+
+
+<# foreach (string type in types) { #>
+
+using System;
+using System.Collections.Generic;
+using Rhino.Geometry;
+using Rhino.Ibis.Logic.<#= type #>;
+
+namespace Rhino.Ibis.TextTemplateTest
+{
+
+	public class <#= type #>Relation
+	{
+		//Related geometry
+		private <# if (type.Contains("To")) 
+		{ #>
+		
+		<# }
+		else 
+		{ 
+			if (type[type.Length - 1] == 's')
+			{ #>
+List<<#= type.Substring(0, type.Length - 1) #>> TheseGeometry { get; set; }
+			<# }
+			else
+			{ #>
+<#= type #> ThisGeometry { get; set; }
+			<# } #>
+		<# } #>
+	
+	}
+
+}
+
+<# }; #>
